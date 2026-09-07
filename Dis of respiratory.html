@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Smart — Respiratory System Disorders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1e1b;
+    --panel:#152a26;
+    --panel2:#1c332e;
+    --line:rgba(233,229,219,0.14);
+    --ink:#efeae0;
+    --ink-dim:#a9b8b2;
+    --coral:#e36857;
+    --coral-dim:#b9503f;
+    --gold:#d8a73d;
+    --teal:#5fc2b8;
+    --green:#6fb98a;
+    --red:#d9635a;
+    --radius:3px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces',serif;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  /* ---------- background texture: faint chart grid ---------- */
+  body{
+    background-image:
+      linear-gradient(rgba(233,229,219,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(233,229,219,0.035) 1px, transparent 1px);
+    background-size:34px 34px;
+  }
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- header ---------- */
+  header{padding:44px 0 0;}
+  .brandrow{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+  .brand h1{
+    font-size:clamp(2.4rem,5vw,3.4rem);
+    font-weight:600;
+    font-style:italic;
+    margin:0;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .brand h1 span{color:var(--coral);font-style:normal;}
+  .brand p{
+    margin:8px 0 0;
+    color:var(--ink-dim);
+    font-size:0.98rem;
+    max-width:46ch;
+  }
+  .lungs{width:86px;height:86px;flex-shrink:0;}
+  .lungs path{fill:none;stroke:var(--teal);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+  .lungs .sac{fill:var(--coral);opacity:0.85;}
+  @media (prefers-reduced-motion: no-preference){
+    .lungs{animation:breathe 4.6s ease-in-out infinite;}
+  }
+  @keyframes breathe{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.06);}
+  }
+
+  /* ---------- tab strip ---------- */
+  nav.tabs{
+    display:flex;
+    gap:6px;
+    margin-top:38px;
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+  }
+  nav.tabs button{
+    background:var(--panel2);
+    color:var(--ink-dim);
+    border:1px solid var(--line);
+    border-bottom:none;
+    padding:13px 18px;
+    font-size:0.92rem;
+    cursor:pointer;
+    border-radius:6px 6px 0 0;
+    white-space:nowrap;
+    position:relative;
+    top:1px;
+    transition:color .15s ease, background .15s ease;
+  }
+  nav.tabs button .num{color:var(--gold);margin-right:8px;font-family:'Fraunces',serif;font-style:italic;}
+  nav.tabs button:hover{color:var(--ink);}
+  nav.tabs button.active{
+    background:var(--panel);
+    color:var(--ink);
+    border-color:var(--line);
+    border-bottom:1px solid var(--panel);
+  }
+  nav.tabs button.active .num{color:var(--coral);}
+
+  /* ---------- section panel ---------- */
+  main{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-top:none;
+    padding:34px 0 40px;
+    min-height:60vh;
+  }
+  section.pane{display:none;}
+  section.pane.active{display:block;}
+  .pane-head{padding:0 24px 22px;border-bottom:1px solid var(--line);margin-bottom:26px;}
+  .pane-head h2{font-size:1.7rem;font-weight:500;margin:0 0 6px;}
+  .pane-head p{color:var(--ink-dim);margin:0;font-size:0.94rem;max-width:60ch;}
+  .pane-body{padding:0 24px;}
+
+  /* ---------- overview ---------- */
+  .ov-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:18px;
+  }
+  .ov-card{
+    background:var(--panel2);
+    border:1px solid var(--line);
+    border-left:3px solid var(--teal);
+    padding:16px 18px;
+  }
+  .ov-card h3{font-size:1.02rem;font-weight:500;margin:0 0 10px;color:var(--ink);}
+  .ov-card ul{margin:0;padding-left:18px;color:var(--ink-dim);font-size:0.88rem;}
+  .ov-card li{margin-bottom:6px;}
+  .ov-card li b{color:var(--ink);font-weight:600;}
+  .ov-card li::marker{color:var(--coral);}
+
+  /* ---------- diagrams ---------- */
+  .diagram-card{
+    background:var(--panel2);
+    border:1px solid var(--line);
+    padding:20px 20px 22px;
+    margin-bottom:22px;
+  }
+  .diagram-card h3{margin:0 0 4px;font-size:1.08rem;font-weight:500;}
+  .diagram-card .hint{color:var(--ink-dim);font-size:0.82rem;margin:0 0 16px;}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px;}
+  .flow-step{
+    background:var(--bg);
+    border:1px solid var(--line);
+    color:var(--ink-dim);
+    padding:9px 13px;
+    font-size:0.83rem;
+    cursor:pointer;
+    border-radius:var(--radius);
+    transition:all .15s ease;
+  }
+  .flow-step:hover{border-color:var(--teal);color:var(--ink);}
+  .flow-step.active{background:var(--coral);border-color:var(--coral);color:#1a0f0c;font-weight:600;}
+  .flow-arrow{color:var(--ink-dim);font-size:0.9rem;opacity:0.6;}
+  .flow-desc{
+    margin-top:14px;
+    padding:12px 14px;
+    background:var(--bg);
+    border-left:3px solid var(--gold);
+    font-size:0.88rem;
+    color:var(--ink-dim);
+    display:none;
+  }
+  .flow-desc.show{display:block;color:var(--ink);}
+  .flow-tag{display:inline-block;font-size:0.72rem;color:var(--teal);margin-bottom:2px;}
+
+  .zonebar{display:flex;gap:0;margin-bottom:12px;border:1px solid var(--line);overflow:hidden;border-radius:var(--radius);}
+  .zonebar div{flex:1;text-align:center;padding:6px;font-size:0.74rem;color:var(--ink-dim);}
+  .zonebar .z1{background:rgba(95,194,184,0.14);}
+  .zonebar .z2{background:rgba(227,104,87,0.14);}
+
+  .toggle-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
+  .tgroup h4{margin:0 0 8px;font-size:0.82rem;color:var(--gold);font-weight:500;}
+  .tgroup .opts{display:flex;flex-direction:column;gap:6px;}
+  .tgroup button{
+    text-align:left;
+    background:var(--bg);
+    border:1px solid var(--line);
+    color:var(--ink-dim);
+    padding:9px 12px;
+    font-size:0.85rem;
+    cursor:pointer;
+    border-radius:var(--radius);
+  }
+  .tgroup button.active{border-color:var(--coral);color:var(--ink);}
+  .tgroup .desc{margin-top:8px;font-size:0.85rem;color:var(--ink-dim);min-height:1.5em;}
+
+  /* ---------- mini map ---------- */
+  .mm-layout{display:grid;grid-template-columns:280px 1fr;gap:0;border:1px solid var(--line);}
+  .mm-list{border-right:1px solid var(--line);max-height:520px;overflow-y:auto;}
+  .mm-list button{
+    display:block;width:100%;text-align:left;
+    background:transparent;border:none;border-bottom:1px solid var(--line);
+    color:var(--ink-dim);padding:13px 16px;font-size:0.87rem;cursor:pointer;
+  }
+  .mm-list button:hover{background:var(--panel2);color:var(--ink);}
+  .mm-list button.active{background:var(--panel2);color:var(--coral);border-left:3px solid var(--coral);padding-left:13px;}
+  .mm-display{padding:22px 26px;font-size:0.92rem;color:var(--ink-dim);}
+  .mm-display h4{margin:0 0 10px;color:var(--ink);font-family:'Fraunces',serif;font-weight:500;font-size:1.2rem;}
+  .mm-empty{color:var(--ink-dim);font-style:italic;opacity:0.7;}
+  @media (max-width:680px){.mm-layout{grid-template-columns:1fr;}.mm-list{max-height:220px;border-right:none;border-bottom:1px solid var(--line);}}
+
+  /* ---------- flashcards ---------- */
+  .fc-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+  .fc-count{color:var(--ink-dim);font-size:0.85rem;}
+  .fc-btns button{
+    background:var(--panel2);border:1px solid var(--line);color:var(--ink);
+    padding:8px 14px;font-size:0.83rem;cursor:pointer;border-radius:var(--radius);margin-left:6px;
+  }
+  .fc-btns button:hover{border-color:var(--teal);}
+  .fc-btns button.primary{background:var(--coral);border-color:var(--coral);color:#1a0f0c;font-weight:600;}
+  .fc-stage{perspective:1400px;max-width:640px;margin:0 auto;}
+  .fc-card{
+    position:relative;height:260px;cursor:pointer;
+    transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .fc-card.flipped{transform:rotateY(180deg);}
+  .fc-face{
+    position:absolute;inset:0;backface-visibility:hidden;
+    border:1px solid var(--line);padding:28px;
+    display:flex;flex-direction:column;justify-content:center;
+    border-radius:6px;
+  }
+  .fc-front{background:var(--panel2);}
+  .fc-back{background:var(--bg);border-color:var(--teal);transform:rotateY(180deg);}
+  .fc-label{font-size:0.72rem;color:var(--gold);margin-bottom:10px;letter-spacing:0.02em;}
+  .fc-text{font-size:1.08rem;color:var(--ink);font-family:'Fraunces',serif;}
+  .fc-back .fc-text{font-family:'IBM Plex Sans',sans-serif;font-size:0.95rem;color:var(--ink-dim);}
+  .fc-hint{text-align:center;color:var(--ink-dim);font-size:0.78rem;margin-top:14px;opacity:0.7;}
+
+  /* ---------- quiz ---------- */
+  .quiz-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+  .quiz-score{background:var(--panel2);border:1px solid var(--line);padding:8px 16px;font-size:0.88rem;border-radius:var(--radius);}
+  .quiz-score b{color:var(--coral);}
+  .quiz-reset{background:var(--panel2);border:1px solid var(--line);color:var(--ink);padding:8px 14px;font-size:0.83rem;cursor:pointer;border-radius:var(--radius);}
+  .quiz-reset:hover{border-color:var(--teal);}
+  .qcard{background:var(--panel2);border:1px solid var(--line);padding:16px 18px;margin-bottom:14px;}
+  .qcard .qn{font-size:0.72rem;color:var(--gold);margin-bottom:6px;}
+  .qcard .qtext{font-size:0.96rem;color:var(--ink);margin-bottom:12px;}
+  .qopts{display:grid;gap:8px;}
+  .qopt{
+    text-align:left;background:var(--bg);border:1px solid var(--line);color:var(--ink-dim);
+    padding:9px 12px;font-size:0.87rem;cursor:pointer;border-radius:var(--radius);
+  }
+  .qopt:hover{border-color:var(--teal);}
+  .qopt.correct{background:rgba(111,185,138,0.18);border-color:var(--green);color:var(--ink);}
+  .qopt.wrong{background:rgba(217,99,90,0.18);border-color:var(--red);color:var(--ink);}
+  .qopt.disabled{cursor:default;}
+
+  /* ---------- footer ---------- */
+  footer{text-align:center;padding:26px 0 40px;color:var(--ink-dim);font-size:0.8rem;}
+  footer .rights{margin-top:4px;opacity:0.65;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brandrow">
+      <div class="brand">
+        <h1>Study <span>Smart</span></h1>
+        <p>A compact review companion for disorders of the respiratory system — built to revise fast, not re-read a lecture.</p>
+      </div>
+      <svg class="lungs" viewBox="0 0 100 100">
+        <path d="M50 10 L50 40"/>
+        <path d="M50 40 C 30 45, 20 55, 18 75 C 16 90, 30 92, 34 82 C 37 74, 36 55, 44 44"/>
+        <path d="M50 40 C 70 45, 80 55, 82 75 C 84 90, 70 92, 66 82 C 63 74, 64 55, 56 44"/>
+        <circle class="sac" cx="26" cy="78" r="4"/>
+        <circle class="sac" cx="74" cy="78" r="4"/>
+      </svg>
+    </div>
+
+    <nav class="tabs" id="tabs">
+      <button class="active" data-pane="overview"><span class="num">01</span>Overview</button>
+      <button data-pane="diagrams"><span class="num">02</span>Interactive Diagrams</button>
+      <button data-pane="minimap"><span class="num">03</span>Mini Map</button>
+      <button data-pane="flashcards"><span class="num">04</span>Flash Cards</button>
+      <button data-pane="quiz"><span class="num">05</span>Quiz Bank</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===================== 1. OVERVIEW ===================== -->
+    <section class="pane active" id="overview">
+      <div class="pane-head">
+        <h2>Overview</h2>
+        <p>High-yield facts only — the rules, definitions, and numbers worth remembering before an exam.</p>
+      </div>
+      <div class="pane-body">
+        <div class="ov-grid" id="overview-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===================== 2. INTERACTIVE DIAGRAMS ===================== -->
+    <section class="pane" id="diagrams">
+      <div class="pane-head">
+        <h2>Interactive Diagrams</h2>
+        <p>Click through every flow, map, and stage sequence from the material.</p>
+      </div>
+      <div class="pane-body">
+
+        <div class="diagram-card">
+          <h3>Airway Map — conducting vs. respiratory zone</h3>
+          <p class="hint">Click a structure to see its role.</p>
+          <div class="zonebar"><div class="z1">Conducting portion — moves air</div><div class="z2">Respiratory portion — gas exchange</div></div>
+          <div class="flow" id="flow-airway"></div>
+          <div class="flow-desc" id="flow-airway-desc"></div>
+        </div>
+
+        <div class="diagram-card">
+          <h3>Lobar Pneumonia — the four stages</h3>
+          <p class="hint">Click a stage to see its timing and findings.</p>
+          <div class="flow" id="flow-lobar"></div>
+          <div class="flow-desc" id="flow-lobar-desc"></div>
+        </div>
+
+        <div class="diagram-card">
+          <h3>Pneumonia Classification</h3>
+          <p class="hint">Click through the three ways pneumonia is classified.</p>
+          <div class="toggle-groups" id="classification-groups"></div>
+        </div>
+
+        <div class="diagram-card">
+          <h3>Tuberculosis — granuloma formation</h3>
+          <p class="hint">Click each step of the immune response, in order.</p>
+          <div class="flow" id="flow-tb"></div>
+          <div class="flow-desc" id="flow-tb-desc"></div>
+        </div>
+
+        <div class="diagram-card">
+          <h3>Asthma Pathogenesis</h3>
+          <p class="hint">Two branches of the same allergic response — click through each.</p>
+          <span class="flow-tag">Branch A — IgE / mast cell route</span>
+          <div class="flow" id="flow-asthma-a"></div>
+          <span class="flow-tag" style="margin-top:14px;display:block;">Branch B — eosinophil route</span>
+          <div class="flow" id="flow-asthma-b"></div>
+          <div class="flow-desc" id="flow-asthma-desc"></div>
+        </div>
+
+        <div class="diagram-card">
+          <h3>Emphysema Mechanism</h3>
+          <p class="hint">Click through the elastase–antitrypsin imbalance, step by step.</p>
+          <div class="flow" id="flow-emphysema"></div>
+          <div class="flow-desc" id="flow-emphysema-desc"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== 3. MINI MAP ===================== -->
+    <section class="pane" id="minimap">
+      <div class="pane-head">
+        <h2>Mini Map</h2>
+        <p>Click any topic title to open its full text on the right.</p>
+      </div>
+      <div class="pane-body">
+        <div class="mm-layout">
+          <div class="mm-list" id="mm-list"></div>
+          <div class="mm-display" id="mm-display"><p class="mm-empty">Select a topic on the left to read it here.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 4. FLASH CARDS ===================== -->
+    <section class="pane" id="flashcards">
+      <div class="pane-head">
+        <h2>Flash Cards</h2>
+        <p>Tap a card to flip it. Covers the full topic list.</p>
+      </div>
+      <div class="pane-body">
+        <div class="fc-controls">
+          <div class="fc-count" id="fc-count">Card 1 / 1</div>
+          <div class="fc-btns">
+            <button id="fc-shuffle">Shuffle</button>
+            <button id="fc-prev">Previous</button>
+            <button id="fc-next" class="primary">Next</button>
+          </div>
+        </div>
+        <div class="fc-stage">
+          <div class="fc-card" id="fc-card">
+            <div class="fc-face fc-front">
+              <div class="fc-label">Question</div>
+              <div class="fc-text" id="fc-q"></div>
+            </div>
+            <div class="fc-face fc-back">
+              <div class="fc-label">Answer</div>
+              <div class="fc-text" id="fc-a"></div>
+            </div>
+          </div>
+        </div>
+        <p class="fc-hint">Click the card to flip it</p>
+      </div>
+    </section>
+
+    <!-- ===================== 5. QUIZ BANK ===================== -->
+    <section class="pane" id="quiz">
+      <div class="pane-head">
+        <h2>Quiz Bank</h2>
+        <p>Answer options are shuffled each time you load or reset the quiz.</p>
+      </div>
+      <div class="pane-body">
+        <div class="quiz-top">
+          <div class="quiz-score">Score: <b id="quiz-score">0</b> / <span id="quiz-total">0</span></div>
+          <button class="quiz-reset" id="quiz-reset">Reset quiz</button>
+        </div>
+        <div id="quiz-list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div>Study Smart — respiratory system disorders review</div>
+    <div class="rights">© Anmar Taha. All rights reserved.</div>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   TAB NAVIGATION
+============================================================ */
+const tabButtons = document.querySelectorAll('#tabs button');
+tabButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabButtons.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('section.pane').forEach(p=>p.classList.remove('active'));
+    document.getElementById(btn.dataset.pane).classList.add('active');
+  });
+});
+
+/* ============================================================
+   GENERIC FLOW BUILDER (used by all interactive diagrams)
+============================================================ */
+function buildFlow(containerId, descId, steps, sharedDescId){
+  const el = document.getElementById(containerId);
+  const descTarget = document.getElementById(descId || (containerId+'-desc'));
+  el.innerHTML = steps.map((s,i)=>
+    `<button class="flow-step" data-i="${i}">${s.label}</button>` +
+    (i<steps.length-1 ? '<span class="flow-arrow">&rarr;</span>' : '')
+  ).join('');
+  el.querySelectorAll('.flow-step').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      // clear active state within this flow group only if not shared
+      const group = sharedDescId ? document.querySelectorAll(`[data-group="${sharedDescId}"] .flow-step`) : el.querySelectorAll('.flow-step');
+      el.querySelectorAll('.flow-step').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      descTarget.textContent = steps[btn.dataset.i].desc;
+      descTarget.classList.add('show');
+    });
+  });
+}
+
+/* ---------- Airway map ---------- */
+buildFlow('flow-airway', 'flow-airway-desc', [
+  {label:'Nose / Nasal Cavity', desc:'Filters, warms, and humidifies incoming air; lined by ciliated mucosa. Conducting portion.'},
+  {label:'Pharynx', desc:'Shared passage for air and food, divided into nasal pharynx and oropharynx. Conducting portion.'},
+  {label:'Larynx', desc:'Houses the vocal cords and epiglottis; guards the lower airway during swallowing. Conducting portion.'},
+  {label:'Trachea', desc:'The windpipe, reinforced by cartilage rings; splits into the two primary bronchi. Conducting portion.'},
+  {label:'Bronchi', desc:'Branch into each lung and subdivide repeatedly, narrowing toward the periphery. Conducting portion.'},
+  {label:'Bronchioles', desc:'Small airways lacking cartilage; terminal bronchioles mark the end of the purely conducting zone.'},
+  {label:'Alveoli', desc:'Thin-walled air sacs where oxygen and carbon dioxide are exchanged with the blood. Respiratory (gas exchange) portion.'}
+]);
+
+/* ---------- Lobar pneumonia stages ---------- */
+buildFlow('flow-lobar', 'flow-lobar-desc', [
+  {label:'1. Congestion', desc:'Day 1 — alveolar capillaries are severely congested; fluid exudate appears only within the alveolar spaces.'},
+  {label:'2. Red Hepatization', desc:'Days 2–4 — the lung becomes firm and liver-like; alveolar spaces fill with neutrophils and red cells, with fibrinous exudate over the pleura.'},
+  {label:'3. Grey Hepatization', desc:'Days 4–8 — the lung is firm and grey; dense fibrin and macrophages replace the earlier neutrophil-rich exudate as red cells break down.'},
+  {label:'4. Resolution', desc:'Weeks 1–3 — macrophages clear the debris and the pleurisy resolves, restoring normal architecture (unless organization/cornification occurs instead).'}
+]);
+
+/* ---------- TB granuloma formation ---------- */
+buildFlow('flow-tb', 'flow-tb-desc', [
+  {label:'Mature Th cell', desc:'A sensitized T-helper cell encounters the mycobacterium and produces interferon-gamma (IFN-γ).'},
+  {label:'Macrophage activation', desc:'IFN-γ activates macrophages, driving them to attempt to kill the intracellular bacteria.'},
+  {label:'TNF release', desc:'Activated macrophages release mediators including TNF, which recruits circulating monocytes.'},
+  {label:'Monocyte recruitment', desc:'Recruited monocytes activate and differentiate into epithelioid histiocytes.'},
+  {label:'Granuloma formation', desc:'Epithelioid histiocytes, lymphocytes, and fused giant cells organize into a granuloma — the Ghon focus, about 1 cm across.'},
+  {label:'Caseous necrosis', desc:'Persisting hypersensitivity produces central caseous necrosis within the granuloma.'}
+]);
+
+/* ---------- Asthma pathogenesis (two branches) ---------- */
+const asthmaDesc = document.getElementById('flow-asthma-desc');
+function buildAsthmaBranch(containerId, steps){
+  const el = document.getElementById(containerId);
+  el.innerHTML = steps.map((s,i)=>
+    `<button class="flow-step" data-i="${i}">${s.label}</button>` +
+    (i<steps.length-1 ? '<span class="flow-arrow">&rarr;</span>' : '')
+  ).join('');
+  el.querySelectorAll('.flow-step').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('#flow-asthma-a .flow-step, #flow-asthma-b .flow-step').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      asthmaDesc.textContent = steps[btn.dataset.i].desc;
+      asthmaDesc.classList.add('show');
+    });
+  });
+}
+buildAsthmaBranch('flow-asthma-a', [
+  {label:'Allergen', desc:'e.g. pollen — inhaled and captured by mucosal dendritic cells.'},
+  {label:'Dendritic cell', desc:'Presents the allergen to naive T-cells, steering them toward a Th2 response.'},
+  {label:'CD4+ Th2 cell', desc:'Releases IL-4, IL-5, and IL-13, driving B-cells toward antibody production.'},
+  {label:'Plasma cell → IgE', desc:'B-cells differentiate into plasma cells that produce allergen-specific IgE.'},
+  {label:'Mast cell', desc:'IgE coats mast cells; re-exposure to allergen triggers degranulation.'},
+  {label:'Mediators released', desc:'Histamine, leukotrienes, and prostaglandin D2 cause bronchoconstriction and mucosal edema.'}
+]);
+buildAsthmaBranch('flow-asthma-b', [
+  {label:'CD4+ Th2 cell', desc:'The same Th2 cell also signals via IL-5 toward eosinophils.'},
+  {label:'Eosinophil', desc:'IL-5 recruits and activates eosinophils in the airway mucosa.'},
+  {label:'Cytokines & leukotrienes', desc:'Activated eosinophils release further cytokines and leukotrienes, prolonging airway inflammation and contributing to the late-phase reaction.'}
+]);
+
+/* ---------- Emphysema mechanism ---------- */
+buildFlow('flow-emphysema', 'flow-emphysema-desc', [
+  {label:'Neutrophils, macrophages, ↓ α1-antitrypsin', desc:'Chronic irritation (e.g. smoking) recruits neutrophils and macrophages while lowering protective α1-antitrypsin activity.'},
+  {label:'↑ Elastase activity', desc:'With less antitrypsin to restrain it, elastase activity rises unchecked.'},
+  {label:'Elastic tissue breakdown', desc:'Elastase digests the elastic framework of the alveolar walls.'},
+  {label:'Loss of lung recoil', desc:'Destroyed elastic tissue means the lung can no longer recoil normally after inspiration.'},
+  {label:'Air trapping & airway collapse', desc:'Airways collapse on expiration and air becomes trapped distal to the terminal bronchiole.'},
+  {label:'Hypercapnia & hypoxemia', desc:'In later stages, impaired gas exchange leads to CO2 retention and low blood oxygen.'}
+]);
+
+/* ============================================================
+   OVERVIEW GRID
+============================================================ */
+const overview = [
+  {title:'Respiratory tract — two functional zones', items:[
+    '<b>Conducting portion:</b> nose → pharynx → larynx → trachea → bronchi → bronchioles — moves air only',
+    '<b>Respiratory portion:</b> respiratory bronchioles → alveolar ducts → alveoli — where gas exchange happens'
+  ]},
+  {title:'Upper respiratory tract inflammation', items:[
+    'Usually mild; caused by rhinovirus, adenovirus, influenza',
+    'Often followed by <b>S. pneumoniae</b> or <b>M. catarrhalis</b>',
+    'Symptoms: sneezing, rhinorrhea, headache, sore throat, malaise'
+  ]},
+  {title:'Acute bronchitis', items:[
+    'Virus / mycoplasma initially, bacterial infection follows',
+    'Rarely spreads to bronchioles — mucous glands + ciliary clearance protect'
+  ]},
+  {title:'Pneumonia — classification', items:[
+    '<b>By agent:</b> typical (bacterial, extracellular) vs. atypical (viral/mycoplasma)',
+    '<b>By distribution:</b> lobar vs. bronchopneumonia',
+    '<b>By setting:</b> community-acquired vs. hospital-acquired (nosocomial)',
+    '<b>Other:</b> aspiration / inhalation pneumonia'
+  ]},
+  {title:'Lobar pneumonia', items:[
+    '<b>&gt;90%</b> caused by <b>Streptococcus pneumoniae</b>',
+    '4 stages: congestion (day 1) → red hepatization (2–4d) → grey hepatization (4–8d) → resolution (1–3wk)',
+    'Complications: organization (cornification), pleural effusion (~5%), empyema (&lt;1%), metastatic infection'
+  ]},
+  {title:'Bronchopneumonia', items:[
+    'Terminal bronchiole infection extending into alveoli — the commonest type',
+    'Frequent in: debilitating disease, infancy, old age, secondary infection',
+    'Patchy, bilateral, lower-zone consolidation',
+    'Complications: hypostatic pneumonia, incomplete resolution/fibrosis, abscess'
+  ]},
+  {title:'Tuberculosis', items:[
+    'Agent: <b>Mycobacterium tuberculosis</b>; airborne droplet transmission',
+    'IFN-γ activates macrophages → TNF → monocytes → epithelioid histiocytes → granuloma (Ghon focus)',
+    'Miliary TB = disseminated, ~10% of extrapulmonary cases',
+    'Diagnosis: AFB smear, culture, PCR, CBC, chest X-ray'
+  ]},
+  {title:'Obstructive pulmonary disease', items:[
+    '4 entities: asthma, emphysema, chronic bronchitis, bronchiectasis',
+    'Chronic bronchitis + emphysema often coexist (smoking)',
+    'Pure emphysema → think α1-antitrypsin deficiency'
+  ]},
+  {title:'Bronchial asthma', items:[
+    'Reversible: bronchospasm + inflammation + ↑ secretions',
+    '<b>Extrinsic:</b> childhood, atopy, IgE-mediated (type I hypersensitivity)',
+    '<b>Intrinsic:</b> adult onset, no family history, triggered by infection/exercise/stress/aspirin',
+    'Treatment: inhaled short-acting β2-agonist + oral corticosteroids'
+  ]},
+  {title:'Emphysema', items:[
+    'Permanent enlargement of airspace distal to terminal bronchiole, with wall destruction',
+    'Mechanism: ↑ elastase + ↓ α1-antitrypsin → loss of recoil → air trapping',
+    'Late stages: hypercapnia & hypoxemia'
+  ]}
+];
+document.getElementById('overview-grid').innerHTML = overview.map(o=>`
+  <div class="ov-card">
+    <h3>${o.title}</h3>
+    <ul>${o.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+  </div>
+`).join('');
+
+/* ============================================================
+   PNEUMONIA CLASSIFICATION TOGGLE GROUPS
+============================================================ */
+const classGroups = [
+  {name:'By causative agent', opts:[
+    {label:'Typical', desc:'Bacteria multiplying extracellularly in the alveoli, causing inflammation and fluid exudation into alveolar spaces.'},
+    {label:'Atypical', desc:'Caused by viral and mycoplasma infection.'}
+  ]},
+  {name:'By distribution', opts:[
+    {label:'Lobar pneumonia', desc:'Affects part of a lobe, a whole lobe, or even two lobes; over 90% due to S. pneumoniae; usually previously-healthy adults.'},
+    {label:'Bronchopneumonia', desc:'Patchy infection around terminal bronchioles extending into alveoli; the commonest type, affecting all ages.'}
+  ]},
+  {name:'By setting', opts:[
+    {label:'Community-acquired', desc:'An infection that begins outside the hospital or nursing home.'},
+    {label:'Hospital-acquired (nosocomial)', desc:'Pneumonia that develops during a hospital stay.'},
+    {label:'Aspiration pneumonia', desc:'Results from inhalation of food, gastric contents, a foreign body, or infected oral material — predisposed to by unconsciousness, intoxication, or neurological disease.'}
+  ]}
+];
+document.getElementById('classification-groups').innerHTML = classGroups.map((g,gi)=>`
+  <div class="tgroup" data-group="cg${gi}">
+    <h4>${g.name}</h4>
+    <div class="opts">
+      ${g.opts.map((o,oi)=>`<button data-g="${gi}" data-o="${oi}">${o.label}</button>`).join('')}
+    </div>
+    <div class="desc" id="cg-desc-${gi}"></div>
+  </div>
+`).join('');
+classGroups.forEach((g,gi)=>{
+  document.querySelectorAll(`[data-group="cg${gi}"] button`).forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll(`[data-group="cg${gi}"] button`).forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(`cg-desc-${gi}`).textContent = g.opts[btn.dataset.o].desc;
+    });
+  });
+});
+
+/* ============================================================
+   MINI MAP
+============================================================ */
+const miniMap = [
+  {title:'Respiratory System Overview', text:'The respiratory system provides gas exchange between the environment and the blood. It is made up of a conducting portion — nose, pharynx, larynx, trachea, bronchi, and bronchioles — which simply carries air inward, and a respiratory portion made of interconnected, thin-walled air-filled spaces that allow rapid gas exchange.'},
+  {title:'Upper Respiratory Tract Inflammation', text:'An extremely common, usually mild condition caused by inflammation from rhinovirus and other viruses such as adenovirus or influenza virus. This is usually followed by a secondary bacterial infection, most often Streptococcus pneumoniae or Neisseria (Moraxella) catarrhalis. Common symptoms include sneezing, a runny nose, headache, a scratchy throat, and general malaise.'},
+  {title:'Acute Bronchitis', text:'Inflammation of the bronchial tubes, which can become serious in patients with pre-existing respiratory disease. It is usually caused by viral and mycoplasmal infection, with the initial phase of acute inflammation followed by bacterial infection such as Streptococcus pneumoniae. Acute bronchitis is usually mild, and spread to the bronchioles is uncommon because mucous and serous glands provide large amounts of mucous secretion, while ciliated epithelium helps sweep phlegm upward to be expelled, preventing further spread.'},
+  {title:'Pneumonia: Definition & Classification', text:'Pneumonia describes inflammation of the parenchymal structures of the lung — the alveoli and the airways distal to the terminal bronchioles. Although antibiotics have significantly reduced mortality, pneumonia remains a leading cause of illness and death worldwide, particularly among the elderly and those with debilitating disease. Pneumonias are classified by the type of causative agent (typical vs. atypical), by the distribution of the infection (lobar vs. bronchopneumonia), and by the setting in which they occur (community-acquired vs. hospital-acquired).'},
+  {title:'Lobar Pneumonia', text:'Lobar pneumonia is an acute bacterial infection, with more than 90% of cases caused by Streptococcus pneumoniae. It affects part of a lobe, an entire lobe, or even two lobes of one or both lungs. The most striking changes occur in the alveolar tissue, while the terminal bronchioles are unaffected or show only minor change; the distribution is not focal. It usually occurs in previously healthy adults and is a common disease in under-resourced settings. It passes through four stages: congestion (day 1, congested capillaries with fluid exudate in the alveolar spaces), red hepatization (days 2–4, the lung looks and feels like liver, with congested walls and neutrophil-filled alveolar spaces plus fibrinous pleural exudate), grey hepatization, and resolution.'},
+  {title:'Complications of Lobar Pneumonia', text:'In about 3% of cases the exudate fails to resolve and instead undergoes organization: fibroblasts grow in from the alveolar septa, producing fibrosed, tough, airless lung tissue known as cornification. About 5% of treated cases develop pleural effusion, and fewer than 1% develop empyema — encysted pus within the pleural cavity. Occasionally, infection extends from the lungs and pleural cavity into the pericardium and heart, causing purulent pericarditis, bacterial endocarditis, or other metastatic infection.'},
+  {title:'Bronchopneumonia', text:'Bronchopneumonia, or lobular pneumonia, is infection of the terminal bronchioles that extends into the surrounding alveoli. It is the commonest type of pneumonia, affecting all ages, and is especially frequent in four settings: as a terminal event in patients with other debilitating disease (such as cancer or diabetes), in infancy, in old age, and as a secondary infection complicating a primary illness. It is caused by a variety of bacteria, including staphylococcus, streptococcus, pneumococcus, Klebsiella pneumoniae, and gram-negative bacilli such as Pseudomonas and coliform bacteria. Grossly, it appears as patchy areas of red or grey consolidation affecting one or more lobes, frequently bilateral and more often involving the lower lung zones because secretions gravitate downward.'},
+  {title:'Complications of Bronchopneumonia', text:'Death is common when bronchopneumonia complicates other debilitating disease; when fluid accumulates in the dorsal part of the lung this is called hypostatic pneumonia. Even when the patient survives, resolution and healing are often incomplete, because the foci of infection heal by fibrosis and granulation tissue formation, leaving scarring. Suppuration and abscess formation can also occur, though this is less common and mainly seen in debilitated patients.'},
+  {title:'Community- vs. Hospital-Acquired Pneumonia', text:'Pneumonias are also classified according to the setting in which they occur. Community-acquired pneumonia describes infection by organisms found in the community rather than in a hospital or nursing home — defined as an infection that begins outside the hospital. Hospital-acquired, or nosocomial, pneumonia develops during a hospital stay and often involves different, more resistant organisms.'},
+  {title:'Aspiration Pneumonia', text:'Aspiration, or inhalation, pneumonia results from the inhalation of different agents into the lungs, including food, gastric contents, a foreign body, or infected material from the oral cavity. A number of factors predispose to inhalation pneumonia, including unconsciousness, intoxication, and neurological disorders that impair the swallowing reflex.'},
+  {title:'Tuberculosis: Transmission & Pathogenesis', text:'Tuberculosis is a potentially serious infectious disease that mainly affects the lungs, caused by Mycobacterium tuberculosis. The bacteria spread from person to person through tiny airborne droplets released by coughing, sneezing, and talking, which remain suspended and circulate in the air — so crowded, confined living conditions favor transmission. In the immune response, mature T-helper cells produce interferon-gamma, which activates macrophages to attempt to kill the pathogen. Activated macrophages release mediators including TNF, which recruits monocytes; these in turn activate and differentiate into the epithelioid histiocytes that characterize the granulomatous response, along with IL-1 production causing fever. As the cell attempts to use reactive oxygen species and nitric oxide synthase to kill the bacterium, a destructive hypersensitivity reaction develops in the form of a caseous granuloma. As sensitization develops, about a 1 cm area of inflammatory consolidation forms, called the Ghon focus.'},
+  {title:'Extrapulmonary Tuberculosis', text:'In active cases, infection can spread outside the lungs, producing extrapulmonary tuberculosis, which occurs more commonly in immunosuppressed persons and young children. In people with HIV, notable extrapulmonary sites include the pleura (tuberculous pleurisy), the central nervous system (tuberculous meningitis), the lymphatic system (scrofula of the neck), and the genitourinary system (urogenital tuberculosis), among others. When it spreads to bone it is called osseous tuberculosis, a form of osteomyelitis. A widespread, disseminated form of TB is called miliary tuberculosis, which makes up about 10% of extrapulmonary cases. Tuberculosis is classified as a granulomatous inflammatory disease: macrophages, T lymphocytes, B lymphocytes, and fibroblasts aggregate to form granulomas, with lymphocytes surrounding infected macrophages, which can fuse into giant multinucleated cells within the alveolar lumen. The granuloma may limit spread of the mycobacteria and provide a local environment for immune cell interaction, though bacteria within it can persist.'},
+  {title:'TB Diagnosis, Treatment & Death Causes', text:'The most severe form of TB disease, most common in young children and those with HIV, is miliary tuberculosis. In many people, tissue destruction and necrosis are balanced by healing and fibrosis; affected tissue is replaced by scarring and by cavities filled with caseous necrotic material. During active disease, some cavities connect to the airways, so this material can be coughed up and remains infectious. Diagnosis relies on AFB microscopy of specimens such as sputum or aspirated material, mycobacterial culture, molecular methods such as PCR, a complete blood count (showing lymphocytosis and a raised ESR), and radiographic studies such as chest X-ray showing characteristic hilar nodules and other parenchymal change. Causes of death in pulmonary tuberculosis are usually pulmonary insufficiency, pulmonary hemorrhage, sepsis from disseminated miliary tuberculosis, cor pulmonale, or secondary amyloidosis. Treatment is difficult and requires multiple antibiotics over a long period; antibiotic resistance is a growing problem in multiple drug-resistant tuberculosis (MDR-TB). Prevention relies on screening programs.'},
+  {title:'Obstructive Pulmonary Disease Overview', text:'Four entities fall under this heading: bronchial asthma, emphysema, chronic bronchitis, and bronchiectasis. Chronic bronchitis may exist without emphysema, and pure emphysema can occur with inherited alpha-1 antitrypsin deficiency, but the two diseases usually coexist, largely because long-term cigarette smoking drives both processes.'},
+  {title:'Bronchial Asthma', text:'Asthma is a disease of the airways characterized by increased responsiveness of the tracheobronchial tree to a variety of stimuli, resulting in widespread spasmodic narrowing of the air passages that may be relieved spontaneously or by therapy. It causes spasmodic attacks of severe dyspnea, wheezing, chest pain, and some cough, particularly at night or early morning. Bronchial asthma represents a reversible form of airway disease caused by narrowing of the airways due to bronchospasm, inflammation, and increased airway secretions. Asthma is commonly categorized into two types: extrinsic (allergic) asthma, the most common type, usually starting in childhood and preceded by atopy; and intrinsic (non-atopic) asthma, which occurs without an allergic component, is triggered by infection, exercise, stress, smoke, or aspirin, has no family history, and starts in adult life, with the allergen not identifiable. Acute treatment is usually an inhaled short-acting beta-2 agonist such as salbutamol plus oral corticosteroids; very severe cases may need IV corticosteroids, magnesium sulfate, and hospitalization, while a long-acting beta agonist may be added to inhaled corticosteroids if asthma remains uncontrolled.'},
+  {title:'Asthma Pathogenesis', text:'There is an increased level of IgE in the serum, and inhaled antigen triggers an IgE-mediated type I hypersensitivity reaction consisting of an acute immediate response and a late-phase reaction. The acute immediate response is initiated by IgE-sensitized mast cells on the mucosal surface; on degranulation these release mediators such as histamine, causing bronchoconstriction, along with leukotrienes and prostaglandin D2. The late-phase reaction follows the acute response and is responsible for the more prolonged manifestations of asthma; it is caused by excessive mobilization of blood leukocytes including basophils, eosinophils, and neutrophils, which release further mediators that reinforce the earlier effects. Chronically, the airway smooth muscle can increase in size along with an increase in the number of mucous glands.'},
+  {title:'Emphysema', text:'Emphysema is an abnormal, permanent enlargement of the airspace distal to the terminal bronchiole, with destruction of the alveolar walls; it causes dyspnea, chronic coughing, and increased mucous production. The mechanism of alveolar wall destruction by elastolytic action is based on an imbalance between neutrophils and macrophages on one side and a decrease of alpha-1 antitrypsin on the other, which increases elastase activity. Elastase breaks down elastic tissue, causing loss of the lung tissue’s recoil, which results in air trapping; airways also collapse, leading to hypercapnia and hypoxemia, especially in later stages.'}
+];
+const mmList = document.getElementById('mm-list');
+const mmDisplay = document.getElementById('mm-display');
+mmList.innerHTML = miniMap.map((m,i)=>`<button data-i="${i}">${m.title}</button>`).join('');
+mmList.querySelectorAll('button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    mmList.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const item = miniMap[btn.dataset.i];
+    mmDisplay.innerHTML = `<h4>${item.title}</h4><p>${item.text}</p>`;
+  });
+});
+
+/* ============================================================
+   FLASH CARDS
+============================================================ */
+let flashcards = [
+  {q:'What are the two functional parts of the respiratory system?', a:'The conducting portion (nose through bronchioles — moves air) and the respiratory portion (respiratory bronchioles through alveoli — gas exchange).'},
+  {q:'Name the parts of the conducting portion in order.', a:'Nose/nasal cavity → pharynx → larynx → trachea → bronchi → bronchioles.'},
+  {q:'What viruses commonly cause upper respiratory tract inflammation?', a:'Rhinovirus, adenovirus, and influenza virus.'},
+  {q:'Which bacteria typically follow viral upper respiratory infection?', a:'Streptococcus pneumoniae and Neisseria (Moraxella) catarrhalis.'},
+  {q:'List the common symptoms of upper respiratory tract inflammation.', a:'Sneezing, a runny nose, headache, a scratchy throat, and general malaise.'},
+  {q:'What causes acute bronchitis?', a:'Virus and mycoplasma infection, often followed by bacterial infection such as S. pneumoniae.'},
+  {q:'Why does acute bronchitis rarely spread to the bronchioles?', a:'Mucous and serous glands produce abundant secretions, and ciliated epithelium sweeps phlegm upward, preventing spread.'},
+  {q:'Define pneumonia.', a:'Inflammation of the lung parenchyma — the alveoli and the airways distal to the terminal bronchioles.'},
+  {q:'What is a typical pneumonia?', a:'One caused by bacteria multiplying extracellularly in the alveoli, producing inflammation and fluid exudation into the alveolar spaces.'},
+  {q:'What causes atypical pneumonia?', a:'Viral and mycoplasma infection.'},
+  {q:'What organism causes over 90% of lobar pneumonias?', a:'Streptococcus pneumoniae.'},
+  {q:'How much lung tissue can lobar pneumonia involve?', a:'Part of a lobe, an entire lobe, or even two lobes of one or both lungs.'},
+  {q:'Name the four stages of lobar pneumonia in order.', a:'Congestion → red hepatization → grey hepatization → resolution.'},
+  {q:'What happens during the congestion stage of lobar pneumonia?', a:'Day 1; alveolar capillaries are severely congested, with fluid exudate seen only in the alveolar spaces.'},
+  {q:'What happens during red hepatization?', a:'Days 2–4; the lung feels firm and looks like liver, with congested walls and alveolar spaces filled with neutrophils and fibrinous pleural exudate.'},
+  {q:'What is "organization" as a complication of lobar pneumonia?', a:'In about 3% of cases the exudate fails to resolve and is invaded by fibroblasts, producing fibrosed, tough, airless lung tissue called cornification.'},
+  {q:'What percentage of treated lobar pneumonia cases develop pleural effusion?', a:'About 5%.'},
+  {q:'What is empyema?', a:'Encysted pus in the pleural cavity, seen in fewer than 1% of treated lobar pneumonia cases.'},
+  {q:'What is bronchopneumonia?', a:'Infection of the terminal bronchioles that extends into the surrounding alveoli — the commonest type of pneumonia.'},
+  {q:'In which four groups is bronchopneumonia especially frequent?', a:'As a terminal event in debilitating disease, in infancy, in old age, and as secondary infection complicating a primary illness.'},
+  {q:'Which organisms commonly cause bronchopneumonia?', a:'Staphylococcus, streptococcus, pneumococcus, Klebsiella pneumoniae, and gram-negative bacilli such as Pseudomonas and coliforms.'},
+  {q:'Describe the gross appearance of bronchopneumonia.', a:'Patchy areas of red or grey consolidation, often bilateral, more common in the lower lung zones due to gravitation of secretions.'},
+  {q:'What is hypostatic pneumonia?', a:'A complication of bronchopneumonia — accumulation of fluid/infection in the dorsal part of the lung, a common cause of death in debilitated patients.'},
+  {q:'How is community-acquired pneumonia defined?', a:'An infection that begins outside the hospital, from organisms found in the community.'},
+  {q:'What predisposes to aspiration (inhalation) pneumonia?', a:'Unconsciousness, intoxication, and neurological disorders that impair the swallowing reflex.'},
+  {q:'What organism causes tuberculosis?', a:'Mycobacterium tuberculosis.'},
+  {q:'How is tuberculosis transmitted?', a:'Person-to-person via airborne droplet nuclei released by coughing, sneezing, and talking.'},
+  {q:'What cytokine activates macrophages to kill mycobacteria in TB?', a:'Interferon-gamma (IFN-γ), produced by mature T-helper cells.'},
+  {q:'What does TNF do during TB granuloma formation?', a:'It recruits monocytes, which activate and differentiate into the epithelioid histiocytes that form the granuloma.'},
+  {q:'What is the Ghon focus?', a:'A roughly 1 cm area of inflammatory, caseous consolidation that develops as TB sensitization progresses.'},
+  {q:'Name extrapulmonary sites of tuberculosis.', a:'The pleura (pleurisy), CNS (meningitis), lymphatic system (scrofula of the neck), genitourinary tract, and bone (osseous TB).'},
+  {q:'What is miliary tuberculosis?', a:'Disseminated TB, most common in young children and HIV patients; about 10% of extrapulmonary cases.'},
+  {q:'List the diagnostic tests used for tuberculosis.', a:'AFB microscopy, mycobacterial culture, PCR, complete blood count (lymphocytosis, raised ESR), and chest X-ray.'},
+  {q:'What are common causes of death in pulmonary tuberculosis?', a:'Pulmonary insufficiency, pulmonary hemorrhage, sepsis from miliary TB, cor pulmonale, and secondary amyloidosis.'},
+  {q:'What are the four obstructive pulmonary diseases?', a:'Bronchial asthma, emphysema, chronic bronchitis, and bronchiectasis.'},
+  {q:'What causes airway narrowing in asthma?', a:'Bronchospasm, inflammation, and increased airway secretions.'},
+  {q:'Differentiate extrinsic and intrinsic asthma.', a:'Extrinsic (allergic) starts in childhood with atopy and IgE involvement; intrinsic (non-atopic) starts in adulthood, is triggered by infection, exercise, stress, smoke, or aspirin, and has no family history.'},
+  {q:'What triggers the acute immediate response in asthma?', a:'IgE-sensitized mast cells degranulate on the mucosal surface, releasing histamine and leukotrienes that cause bronchoconstriction.'},
+  {q:'What characterizes the late-phase reaction in asthma?', a:'Mobilization of basophils, eosinophils, and neutrophils, with further mediator release and, chronically, smooth muscle and mucous gland hypertrophy.'},
+  {q:'What is first-line treatment for acute asthma symptoms?', a:'An inhaled short-acting beta-2 agonist (e.g. salbutamol) plus oral corticosteroids.'},
+  {q:'What defines emphysema?', a:'Abnormal, permanent enlargement of the airspace distal to the terminal bronchiole, with destruction of the alveolar walls.'},
+  {q:'Explain the elastase–antitrypsin imbalance in emphysema.', a:'Neutrophils and macrophages release elastase while alpha-1 antitrypsin, which normally restrains it, is decreased; elastic tissue breaks down, the lung loses recoil, and air trapping and airway collapse follow.'},
+  {q:'What are the late-stage consequences of emphysema?', a:'Hypercapnia and hypoxemia.'}
+];
+let fcIndex = 0;
+let fcFlipped = false;
+const fcCardEl = document.getElementById('fc-card');
+const fcQEl = document.getElementById('fc-q');
+const fcAEl = document.getElementById('fc-a');
+const fcCountEl = document.getElementById('fc-count');
+
+function renderFlashcard(){
+  fcFlipped = false;
+  fcCardEl.classList.remove('flipped');
+  const c = flashcards[fcIndex];
+  fcQEl.textContent = c.q;
+  fcAEl.textContent = c.a;
+  fcCountEl.textContent = `Card ${fcIndex+1} / ${flashcards.length}`;
+}
+fcCardEl.addEventListener('click', ()=>{
+  fcFlipped = !fcFlipped;
+  fcCardEl.classList.toggle('flipped', fcFlipped);
+});
+document.getElementById('fc-next').addEventListener('click', ()=>{
+  fcIndex = (fcIndex+1) % flashcards.length;
+  renderFlashcard();
+});
+document.getElementById('fc-prev').addEventListener('click', ()=>{
+  fcIndex = (fcIndex-1+flashcards.length) % flashcards.length;
+  renderFlashcard();
+});
+document.getElementById('fc-shuffle').addEventListener('click', ()=>{
+  for(let i=flashcards.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [flashcards[i],flashcards[j]]=[flashcards[j],flashcards[i]];
+  }
+  fcIndex = 0;
+  renderFlashcard();
+});
+renderFlashcard();
+
+/* ============================================================
+   QUIZ BANK
+============================================================ */
+const quizData = [
+  {q:'Which part of the respiratory system is responsible for gas exchange?', options:['Nasal cavity','Trachea','Alveoli','Larynx'], answer:'Alveoli'},
+  {q:'Which of the following is NOT typically implicated in upper respiratory tract inflammation?', options:['Rhinovirus','Adenovirus','Influenza virus','Mycobacterium tuberculosis'], answer:'Mycobacterium tuberculosis'},
+  {q:'Which bacteria commonly follow a viral upper respiratory infection?', options:['Streptococcus pneumoniae','E. coli','Candida albicans','Clostridium difficile'], answer:'Streptococcus pneumoniae'},
+  {q:'Acute bronchitis is usually initially caused by:', options:['Fungi','Virus and mycoplasma','Parasites','Prions'], answer:'Virus and mycoplasma'},
+  {q:'Spread of acute bronchitis to the bronchioles is uncommon mainly because of:', options:['Cartilage rings','Mucous and serous gland secretions plus ciliary clearance','Alveolar macrophages','Surfactant'], answer:'Mucous and serous gland secretions plus ciliary clearance'},
+  {q:'Typical pneumonia results from:', options:['Bacteria multiplying extracellularly in alveoli','Intracellular viral replication','Fungal spore inhalation','An autoimmune reaction'], answer:'Bacteria multiplying extracellularly in alveoli'},
+  {q:'Atypical pneumonia is caused by:', options:['Viral and mycoplasma infection','Streptococcus pneumoniae only','Staphylococcus aureus only','Klebsiella only'], answer:'Viral and mycoplasma infection'},
+  {q:'More than 90% of lobar pneumonias are caused by:', options:['Klebsiella pneumoniae','Streptococcus pneumoniae','Pseudomonas aeruginosa','Mycoplasma'], answer:'Streptococcus pneumoniae'},
+  {q:'Which stage of lobar pneumonia occurs on day 1?', options:['Red hepatization','Congestion','Grey hepatization','Resolution'], answer:'Congestion'},
+  {q:'During red hepatization, alveolar spaces are filled mainly with:', options:['Fibrosis','Neutrophils and fibrinous exudate','Macrophages only','Air'], answer:'Neutrophils and fibrinous exudate'},
+  {q:'Grey hepatization typically occurs on which days?', options:['Day 1','Days 2–4','Days 4–8','Weeks 1–3'], answer:'Days 4–8'},
+  {q:'Resolution of lobar pneumonia typically takes:', options:['1 day','2–4 days','4–8 days','1–3 weeks'], answer:'1–3 weeks'},
+  {q:'Post-pneumonic fibrosis from failed resolution is called:', options:['Cornification','Hepatization','Caseation','Empyema'], answer:'Cornification'},
+  {q:'Encysted pus in the pleural cavity following lobar pneumonia is called:', options:['Effusion','Empyema','Abscess','Granuloma'], answer:'Empyema'},
+  {q:'Bronchopneumonia primarily involves:', options:['An entire lobe uniformly','Terminal bronchioles extending into surrounding alveoli','The pleura only','The trachea'], answer:'Terminal bronchioles extending into surrounding alveoli'},
+  {q:'Bronchopneumonia is especially frequent in all of the following EXCEPT:', options:['Infancy','Old age','Previously healthy young adults','Debilitating disease'], answer:'Previously healthy young adults'},
+  {q:'The gross appearance of bronchopneumonia typically shows:', options:['Uniform single-lobe consolidation','Patchy, often bilateral consolidation, more in lower zones','Cavitary lesions confined to upper lobes','Diffuse pleural thickening only'], answer:'Patchy, often bilateral consolidation, more in lower zones'},
+  {q:'Hypostatic pneumonia refers to:', options:['Fluid accumulation in the dorsal lung, causing death in debilitated patients','A viral upper respiratory infection','An allergic lung reaction','A congenital lung defect'], answer:'Fluid accumulation in the dorsal lung, causing death in debilitated patients'},
+  {q:'Community-acquired pneumonia is defined as an infection that:', options:['Begins outside the hospital','Begins after 48 hours of hospitalization','Occurs only in nursing homes','Is always viral'], answer:'Begins outside the hospital'},
+  {q:'Aspiration pneumonia can result from inhalation of:', options:['Only bacteria','Food, gastric contents, foreign bodies, or infected oral material','Only pollen','Only dust'], answer:'Food, gastric contents, foreign bodies, or infected oral material'},
+  {q:'Tuberculosis is caused by:', options:['Mycobacterium tuberculosis','Streptococcus pneumoniae','Haemophilus influenzae','Legionella pneumophila'], answer:'Mycobacterium tuberculosis'},
+  {q:'Tuberculosis is transmitted mainly by:', options:['Contaminated water','Airborne droplet nuclei','Direct blood contact','Insect vectors'], answer:'Airborne droplet nuclei'},
+  {q:'Which cytokine, produced by T-helper cells, activates macrophages in TB?', options:['IL-4','Interferon-gamma','IL-10','TGF-beta'], answer:'Interferon-gamma'},
+  {q:'The roughly 1 cm area of caseous granuloma in early TB is called the:', options:['Ghon focus','Empyema','Tubercle bacillus','Miliary nodule'], answer:'Ghon focus'},
+  {q:'Miliary tuberculosis is:', options:['A localized skin infection','A disseminated form of TB, common in children and HIV patients','A form of asthma','A bacterial pneumonia'], answer:'A disseminated form of TB, common in children and HIV patients'},
+  {q:'Which diagnostic method for TB uses PCR-based detection?', options:['AFB microscopy','Molecular methods','Complete haemogram','Chest X-ray'], answer:'Molecular methods'},
+  {q:'Which of these is a recognized cause of death in pulmonary TB?', options:['Cor pulmonale','Appendicitis','Gout','Osteoarthritis'], answer:'Cor pulmonale'},
+  {q:'The four entities under obstructive pulmonary disease include all EXCEPT:', options:['Bronchial asthma','Emphysema','Chronic bronchitis','Lobar pneumonia'], answer:'Lobar pneumonia'},
+  {q:'Pure emphysema without chronic bronchitis is classically associated with:', options:['Alpha-1 antitrypsin deficiency','Vitamin D deficiency','Iron overload','Beta-2 agonist overuse'], answer:'Alpha-1 antitrypsin deficiency'},
+  {q:'Extrinsic (allergic) asthma is characterized by:', options:['Adult onset with no family history','Childhood onset preceded by atopy','Triggering by aspirin only','No IgE involvement'], answer:'Childhood onset preceded by atopy'},
+  {q:'In asthma pathogenesis, allergen-specific IgE is produced by:', options:['Eosinophils','Plasma cells','Mast cells','Dendritic cells'], answer:'Plasma cells'},
+  {q:'Mast cell degranulation in asthma releases:', options:['Insulin','Histamine, leukotrienes, and prostaglandin D2','Bile acids','Thyroid hormone'], answer:'Histamine, leukotrienes, and prostaglandin D2'},
+  {q:'The late-phase reaction in asthma is driven mainly by:', options:['Red blood cells','Basophils, eosinophils, and neutrophils','Platelets only','Hepatocytes'], answer:'Basophils, eosinophils, and neutrophils'},
+  {q:'First-line treatment for acute asthma symptoms is:', options:['IV antibiotics','Inhaled short-acting beta-2 agonist plus oral corticosteroids','Long-term oxygen therapy','Antihistamines only'], answer:'Inhaled short-acting beta-2 agonist plus oral corticosteroids'},
+  {q:'Emphysema is defined as:', options:['Reversible bronchospasm','Permanent enlargement of airspace distal to the terminal bronchiole with wall destruction','Inflammation of the pharynx','Bacterial infection confined to alveoli'], answer:'Permanent enlargement of airspace distal to the terminal bronchiole with wall destruction'},
+  {q:'In emphysema, excess elastase activity results from:', options:['Increased alpha-1 antitrypsin','Neutrophils, macrophages, and decreased alpha-1 antitrypsin','Decreased neutrophil count','Increased surfactant'], answer:'Neutrophils, macrophages, and decreased alpha-1 antitrypsin'},
+  {q:'Late-stage emphysema commonly causes:', options:['Hypercapnia and hypoxemia','Hyperoxia','Metabolic alkalosis only','Polycythemia only'], answer:'Hypercapnia and hypoxemia'}
+];
+
+let quizState = [];
+
+function shuffleArray(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function initQuiz(){
+  quizState = quizData.map(q=>({
+    q: q.q,
+    answer: q.answer,
+    options: shuffleArray(q.options),
+    answered: false
+  }));
+  document.getElementById('quiz-total').textContent = quizData.length;
+  renderQuiz();
+  updateScore();
+}
+
+function renderQuiz(){
+  const list = document.getElementById('quiz-list');
+  list.innerHTML = quizState.map((item,qi)=>`
+    <div class="qcard">
+      <div class="qn">Question ${qi+1}</div>
+      <div class="qtext">${item.q}</div>
+      <div class="qopts">
+        ${item.options.map((opt,oi)=>`<button class="qopt" data-qi="${qi}" data-oi="${oi}">${opt}</button>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  list.querySelectorAll('.qopt').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const qi = btn.dataset.qi;
+      const item = quizState[qi];
+      if(item.answered) return;
+      item.answered = true;
+      const chosen = btn.textContent;
+      const groupBtns = list.querySelectorAll(`.qopt[data-qi="${qi}"]`);
+      groupBtns.forEach(b=>{
+        b.classList.add('disabled');
+        if(b.textContent === item.answer) b.classList.add('correct');
+        else if(b === btn) b.classList.add('wrong');
+      });
+      updateScore();
+    });
+  });
+}
+
+function updateScore(){
+  let score = 0;
+  quizState.forEach(item=>{ if(item.answered){
+    // determine if the selected one matches — recompute from DOM not tracked separately, so track via a chosen field instead
+  }});
+  // recompute score by counting correct-marked, non-wrong answered items
+  const correctCount = document.querySelectorAll('.qopt.correct').length;
+  const wrongCount = document.querySelectorAll('.qopt.wrong').length;
+  // a question counts as correct only if the learner's own click was correct (no matching .wrong in that group)
+  let realScore = 0;
+  quizState.forEach((item,qi)=>{
+    if(item.answered){
+      const wrongInGroup = document.querySelector(`.qopt.wrong[data-qi="${qi}"]`);
+      if(!wrongInGroup) realScore++;
+    }
+  });
+  document.getElementById('quiz-score').textContent = realScore;
+}
+
+document.getElementById('quiz-reset').addEventListener('click', initQuiz);
+initQuiz();
+</script>
+</body>
+</html>
